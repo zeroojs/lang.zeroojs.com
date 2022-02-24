@@ -1,0 +1,90 @@
+html {
+  font-size: 14px;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* 文本域组件 BEGIN */
+.trans-textarea {
+  width: 100%;
+}
+.trans-textarea__inner {
+  min-height: 300px;
+  overflow: auto;
+  padding: 10px;
+  outline: unset;
+  border: 1px solid #d9d9d9;
+  border-radius: 3px;
+  transition: border .2s ease;
+  display: block;
+  width: 100%;
+  line-height: 1.5em;
+}
+.trans-textarea__inner:focus {
+  border-color: #6C63FF;
+}
+/* 文本域组件 END */
+
+/* JSON 预览组件 BEGIN */
+.json-preview {
+  border-radius: 3px;
+  border: 1px solid #d9d9d9;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 10px;
+}
+.json-preview pre {
+  /* overflow: hidden auto; */
+  overflow: auto;
+  line-height: 2em;
+}
+/* JSON 预览组件 END */
+
+.trans-group {
+  display: flex;
+  justify-content: center;
+  max-width: 1200px;
+  width: 100%;
+  margin: auto;
+  margin-bottom: 40px;
+}
+.trans-group-item {
+  flex: 1;
+}
+.trans-group .trans-group-item:first-child {
+  margin-right: 20px;
+}
+.trans-group .trans-group-item:last-child {
+  margin-left: 20px;
+}
+
+/* Driver */
+/* #driver-page-overlay {
+  background: #000;
+  z-index: 9;
+}
+#driver-highlighted-element-stage {
+  z-index: 10;
+} */
+
+.driver-close-btn,
+.driver-prev-btn,
+.driver-next-btn {
+  background-color: unset !important;
+  border: 1px solid #6C63FF !important;
+  color: #6C63FF !important;
+  text-shadow: unset !important;
+}
+
+.driver-close-btn:hover,
+.driver-prev-btn:hover,
+.driver-next-btn:hover {
+  background-color: #9590f775 !important;
+}

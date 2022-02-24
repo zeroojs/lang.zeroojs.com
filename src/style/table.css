@@ -1,0 +1,37 @@
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+table * {
+  box-sizing: border-box;
+  overflow: hidden;
+}
+td, th {
+  border: 1px solid #d9d9d9;
+}
+td, th {
+  padding: 10px;
+}
+tr.is-selected {
+  background-color: #f5f5ff;
+}
+tr.is-main {
+  position: relative;
+}
+tr.is-main::after {
+  content: " ";
+  height: 3px;
+  background-color: #6C63FF;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+tr.is-main td {
+  border-bottom: 1px solid #6C63FF;
+  border-left: 1px solid #6C63FF;
+}
+tr.is-main td:last-child {
+  border-right: 1px solid #6C63FF;
+}

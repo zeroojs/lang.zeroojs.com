@@ -1,0 +1,19 @@
+.input {
+  outline: none;
+  padding: 10px;
+  outline: unset;
+  border: 1px solid #d9d9d9;
+  border-radius: 3px;
+  transition: border .2s ease;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto 40px;
+  display: block;
+}
+.input:focus {
+  border-color: #6C63FF;
+}
+textarea.input {
+  min-height: 100px;
+  overflow: auto;
+}
