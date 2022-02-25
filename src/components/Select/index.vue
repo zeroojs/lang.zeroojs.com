@@ -4,7 +4,7 @@
  * @Author: Minyoung
  * @Date: 2022-02-09 13:36:40
  * @LastEditors: Minyoung
- * @LastEditTime: 2022-02-24 16:33:33
+ * @LastEditTime: 2022-02-25 11:42:19
 -->
 <template>
   <div class="select">
@@ -30,13 +30,14 @@
 import { computed, defineComponent, provide, ref, watch } from 'vue'
 
 export default defineComponent({
+  name: 'Select',
   props: {
     modelValue: {
       type: String,
       default: ''
     }
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'change'],
   setup(props, { emit, slots }) {
     const selected = ref({
       value: ''
@@ -53,6 +54,7 @@ export default defineComponent({
     const handleOptionClick = (val) => {
       selected.value = val
       emit('update:modelValue', val.value)
+      emit('change', val)
       hideOptions()
     }
     provide('handleOptionClick', handleOptionClick)
@@ -64,7 +66,15 @@ export default defineComponent({
 
     watch(() => props.modelValue, (v) => {
       if (v) {
-        const [{ children }] = slots.default()
+        let [{ children }] = slots.default()
+        if (slots.default().length > 1) {
+          children = slots.default()
+          const el = children.find(({ props }) => props.value === v)
+          if (!el) return
+          selected.value = el.props || {}
+          return
+        }
+        if (!children.find) return
         const el = children.find(({ props }) => props.value === v)
         if (!el) return
         selected.value = el.props || {}

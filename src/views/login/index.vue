@@ -8,7 +8,7 @@
     </div>
     <div class="form-container">
       <div class="guide flex">
-        <a href="/home.html" title="首页">
+        <a href="/home.html" :title="$t('首页')">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -19,7 +19,7 @@
             <path fill="#6C63FF" d="M19 21H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9a1 1 0 0 1-1 1zM6 19h12V9.157l-6-5.454-6 5.454V19zm2-4h8v2H8v-2z"/>
           </svg>
         </a>
-        <a href="" @click.prevent="giteeLogin()" title="Gitee 授权登录">
+        <a href="" @click.prevent="giteeLogin()" :title="$t('Gitee 授权登录')">
           <svg
             t="1645630280002"
             class="icon"
@@ -35,33 +35,35 @@
         </a>
       </div>
       <form>
-        <input v-model="form.phoneNumber" class="input" placeholder="请输入电话" />
+        <input v-model="form.phoneNumber" class="input" :placeholder="$t('请输入电话')" />
         <div class="input-code flex">
-          <input v-model="form.verifyCode" class="input" placeholder="验证码" />
+          <input v-model="form.verifyCode" class="input" :placeholder="$t('验证码')" />
           <a
             href=""
             class="code-btn"
             :class="{ 'is-disabled': isSendSms }"
             @click.prevent="sendSmsVerifyCode()"
           >
-            {{ sendCodeBtnText }}
+            {{ !countdown ? $t('发送验证码') : `${countdown ? `${countdown} ` : ''}${$t('后重新发送')}` }}
           </a>
         </div>
-        <button class="btn small submit-btn" @click.prevent="smsLogin()">开始创建语言包</button>
+        <LangSelect class="login-lang-select" />
+        <button class="btn small submit-btn" @click.prevent="smsLogin()">{{ $t('开始创建语言包') }}</button>
         <label class="flex agreement">
           <input v-model="form.agreement" type="checkbox" />
-          我同意
-          <a href="" class="link-style">《注册协议》《用户隐私政策》</a>
+          {{ $t('我同意') }}
+          <a href="" class="link-style">《{{ $t('注册协议') }}》</a>
+          <a href="" class="link-style">《{{ $t('用户隐私政策') }}》</a>
         </label>
       </form>
     </div>
   </div>
   <Dialog v-model="visible">
     <div class="dialog-container">
-      您同意<a href="" class="link-style">《注册协议》《用户隐私政策》</a>吗？
+      {{ $t('您同意') }} <a href="" class="link-style">《{{ $t('注册协议') }}》《{{ $t('用户隐私政策') }}》</a>？
       <div class="flex center">
-        <button class="btn small" @click="aggAgreement()">同意</button>
-        <button class="btn small border" @click="visible = false">取消</button>
+        <button class="btn small" @click="aggAgreement()">{{ $t('同意') }}</button>
+        <button class="btn small border" @click="visible = false">{{ $t('取消') }}</button>
       </div>
     </div>
   </Dialog>
@@ -71,10 +73,12 @@
 import { defineComponent, onUnmounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { request } from '../../utils'
-import Dialog from '../../components/Dialog.vue'
+import Dialog from '@/components/Dialog.vue'
+import LangSelect from '@/components/LangSelect/index.vue'
+import i18n from '../../utils/i18n'
 
 export default defineComponent({
-  components: { Dialog },
+  components: { Dialog, LangSelect },
   setup() {
     return {
       ...useLogin(),
@@ -92,7 +96,7 @@ function useLogin() {
     agreement: false
   })
   const visible = ref(false)
-  const sendCodeBtnText = ref('发送验证码')
+  const countdown = ref(0)
   // Gitee 授权登录
   const giteeLogin = async () => {
     if (!form.agreement) {
@@ -138,11 +142,10 @@ function useLogin() {
     if (result.code === 0) {
       isSendSms.value = true
       timer = setInterval(() => {
-        sendCodeBtnText.value = `${s} 后重新发送`
+        countdown.value = s
         s--
         if (s < 0) {
           s = 30
-          sendCodeBtnText.value = '发送验证码'
           isSendSms.value = false
           clearInterval(timer)
         }
@@ -157,10 +160,10 @@ function useLogin() {
     form,
     visible,
     smsLogin,
+    countdown,
     giteeLogin,
     isSendSms,
     aggAgreement,
-    sendCodeBtnText,
     sendSmsVerifyCode
   }
 }
@@ -168,7 +171,6 @@ function useLogin() {
 function useProfile() {
   const getProfile = async () => {
     const result = await request.get('/user/gitee')
-    console.log(result)
     if (result && result.access_token) {
       localStorage.setItem('x-token', result.access_token)
     }
@@ -194,6 +196,15 @@ function useProfile() {
   .input::placeholder {
     font-size: 14px;
   }
+}
+.login-lang-select {
+  margin-top: 40px;
+}
+.login-lang-select :deep(.input) {
+  font-size: 18px;
+}
+.login-lang-select :deep(.select-options) {
+  top: 48px;
 }
 .form-container {
   padding: 40px;

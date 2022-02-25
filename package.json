@@ -27,6 +27,7 @@
     "spark-md5": "^3.0.2",
     "tencentcloud-sdk-nodejs": "^4.0.293",
     "vue": "^3.2.25",
+    "vue-i18n": "9",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {

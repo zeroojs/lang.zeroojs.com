@@ -4,7 +4,7 @@
  * @Author: Minyoung
  * @Date: 2022-02-10 09:48:30
  * @LastEditors: Minyoung
- * @LastEditTime: 2022-02-24 18:01:23
+ * @LastEditTime: 2022-02-25 14:47:37
  */
 const fs = require('fs')
 const path = require('path')
@@ -88,6 +88,12 @@ module.exports = function useTransRouter(router) {
   router.delete('/trans/:id', async (req, res) => {
     const { id } = req.params
     const result = await delTran({ id })
+    res.json(result)
+  })
+
+  router.get('/import-trans/:id', async (req, res) => {
+    const { id } = req.params
+    const result = await queryTran(id)
     res.json(result)
   })
 }

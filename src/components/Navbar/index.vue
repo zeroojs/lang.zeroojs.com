@@ -4,10 +4,14 @@
  * @Author: Minyoung
  * @Date: 2022-02-22 16:45:59
  * @LastEditors: Minyoung
- * @LastEditTime: 2022-02-24 16:29:33
+ * @LastEditTime: 2022-02-25 16:31:30
 -->
 <template>
   <div class="navbar">
+    <Select v-model="localeVal" @change="changeLanguage">
+      <Option value="zh" label="中文">中文</Option>
+      <Option value="en_62187819dc62f124ebe45511" label="English">English</Option>
+    </Select>
     <template v-if="account">
       <a href="" class="logout-btn" title="退出登录" @click.prevent="logout()">
         <svg
@@ -22,29 +26,43 @@
       </a>
       <span>{{ account }}</span>
     </template>
-    <router-link v-else to="/login">登录</router-link>
+    <router-link v-else to="/login">{{ $t('登录') }}</router-link>
     <Avatar v-show="account" />
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-import { useStore } from '../../store'
+import { computed, ref, watch } from 'vue'
+import { useStore, useLangStore } from '../../store'
 import Avatar from '../Avatar/index.vue'
 const store = useStore()
+const langStore = useLangStore()
+const localeVal = ref('')
 const account = computed(() => store.user.account)
 
 const logout = () => {
   localStorage.removeItem('x-token')
   window.location.href = '/home.html'
 }
+
+const changeLanguage = ({ value }) => {
+  const [locale, transId] = value.split('_')
+  langStore.setLocale({ locale, transId })
+}
+
+watch(() => langStore.locale, (val) => {
+  if (val !== 'zh') {
+    localeVal.value = `${val}_${langStore.transId}`
+    return
+  }
+  localeVal.value = val
+}, { immediate: true })
 </script>
 
 <style lang="less" scoped>
 .navbar {
   height: 60px;
-  width: calc(100% - 150px);
+  width: calc(100% - 250px);
   padding-right: 20px;
   position: fixed;
   top: 0;
@@ -54,7 +72,8 @@ const logout = () => {
   justify-content: flex-end;
   border-bottom: 1px solid #d9d9d9;
   transition: border-color .3s, box-shadow .3s;
-  overflow: hidden;
+  background-color: #fff;
+  // overflow: hidden;
   .avatar {
     margin-left: 10px;
   }
@@ -67,6 +86,9 @@ const logout = () => {
   }
   .logout-btn:hover svg {
     fill: #6C63FF;
+  }
+  .select {
+    margin-right: 10px;
   }
 }
 </style>

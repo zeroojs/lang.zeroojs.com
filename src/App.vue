@@ -4,13 +4,13 @@
  * @Author: Minyoung
  * @Date: 2022-01-18 10:37:58
  * @LastEditors: Minyoung
- * @LastEditTime: 2022-02-24 16:51:40
+ * @LastEditTime: 2022-02-25 14:09:10
 -->
 <script>
 import Sidebar from './components/Sidebar.vue'
 import Navbar from './components/Navbar/index.vue'
 import { computed, defineComponent, ref } from 'vue'
-import { useStore } from './store'
+import { useLangStore, useStore } from './store'
 
 export default defineComponent({
   components: {
@@ -25,10 +25,12 @@ export default defineComponent({
     }
 
     const store = useStore()
+    const langStore = useLangStore()
     if (store.isLogin) {
       store.getProfile()
       store.getLangs()
     }
+    langStore.init()
 
     return {
       isLogin,
@@ -60,7 +62,8 @@ export default defineComponent({
   color: #2c3e50;
 }
 .app-view {
-  padding: 120px 20px 20px 170px;
+  /* padding: 120px 20px 20px 170px; */
+  padding: 120px 20px 20px 270px;
   min-height: 100vh;
   box-sizing: border-box;
   overflow: hidden;

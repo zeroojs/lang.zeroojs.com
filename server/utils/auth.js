@@ -4,11 +4,11 @@
  * @Author: Minyoung
  * @Date: 2022-02-24 15:32:01
  * @LastEditors: Minyoung
- * @LastEditTime: 2022-02-24 16:31:32
+ * @LastEditTime: 2022-02-25 14:48:15
  */
 const { decodeToken } = require('./token')
 async function authMiddleware(req, res, next) {
-  const noAuth = /\/login/.test(req.url)
+  const noAuth = /\/login|\/import-trans/.test(req.url)
   if (noAuth) return next()
   const token = req.headers.authentication
   const valid = await decodeToken(token)

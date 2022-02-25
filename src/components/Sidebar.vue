@@ -4,7 +4,7 @@
  * @Author: Minyoung
  * @Date: 2022-02-07 13:27:46
  * @LastEditors: Minyoung
- * @LastEditTime: 2022-02-24 16:44:05
+ * @LastEditTime: 2022-02-25 14:15:25
 -->
 <template>
   <div class="sidebar">
@@ -15,7 +15,7 @@
       :to="menu.value"
       class="sidebar-item"
     >
-      {{ menu.label }}
+      {{ $t(menu.label) }}
     </router-link>
     <a
       v-show="isShowGuide"
@@ -23,7 +23,7 @@
       class="sidebar-item"
       @click.prevent.stop="driverAction()"
     >
-      使用指引
+      {{ $t('使用指引') }}
     </a>
   </div>
 </template>
@@ -89,6 +89,7 @@ export default defineComponent({
   left: 0;
   height: 100vh;
   box-sizing: border-box;
+  background-color: #fff;
   /* border-right: 1px solid #d9d9d9; */
   /* background-color: #6C63FF;
   color: #fff; */
@@ -110,7 +111,7 @@ export default defineComponent({
   display: block;
   text-decoration: none;
   color: inherit;
-  min-width: 150px;
+  min-width: 250px;
   position: relative;
 }
 .sidebar-item::before {

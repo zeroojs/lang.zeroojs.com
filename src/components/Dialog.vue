@@ -107,6 +107,9 @@ export default defineComponent({
   visibility: hidden;
   opacity: 0;
   transition: 0.3s;
+  &.sm .dialog-main {
+    max-width: 450px;
+  }
   &.is-show {
     visibility: visible;
     opacity: 1;

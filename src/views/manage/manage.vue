@@ -4,7 +4,7 @@
  * @Author: Minyoung
  * @Date: 2022-02-07 13:55:43
  * @LastEditors: Minyoung
- * @LastEditTime: 2022-02-21 23:08:59
+ * @LastEditTime: 2022-02-25 14:38:06
 -->
 <template>
   <div class="manage-trans">
@@ -14,7 +14,7 @@
         :class="{ disabled: selecteds.length < 2 }"
         @click="mergeVisible = true"
       >
-        合并语言包
+        {{ $t('合并语言包') }}
       </button>
       <!-- <p class="merge-tips">* 若您未设置主文件，则会以选择的最后一个语言包作为主文件</p> -->
     </div>
@@ -26,13 +26,13 @@
             <input v-model="selectedAll" type="checkbox" @change="handleSelectedAll(trans)" />
           </td>
           <td>HASH</td>
-          <td>站点</td>
-          <td>语种</td>
-          <td>状态</td>
-          <td>合并文件</td>
-          <td>上次修改时间</td>
-          <td>备注</td>
-          <td align="center">操作</td>
+          <td>{{ $t('站点') }}</td>
+          <td>{{ $t('语种') }}</td>
+          <td>{{ $t('状态') }}</td>
+          <td>{{ $t('合并文件') }}</td>
+          <td>{{ $t('上次修改时间') }}</td>
+          <td>{{ $t('备注') }}</td>
+          <td align="center">{{ $t('操作') }}</td>
         </tr>
       </thead>
       <tbody v-if="trans.length">
@@ -93,9 +93,9 @@
           </td>
           <td v-else>&nbsp;</td>
           <td>{{ formatStatus(tran.status) }}</td>
-          <td align="center">{{ tran.isMerge ? '是' : '否' }}</td>
+          <td align="center">{{ tran.isMerge ? 'Y' : 'N' }}</td>
           <td>{{ formatDate(tran.updatedAt) }}</td>
-          <td>{{ tran.mark || '无' }}</td>
+          <td>{{ tran.mark || '/' }}</td>
           <td style="min-width: 300px">
             <div class="flex center">
               <router-link
@@ -103,13 +103,13 @@
                 class="btn small"
                 tag="button"
               >
-                编辑
+                {{ $t('编辑') }}
               </router-link>
               <button class="btn small border" @click="downloadJson(tran)">
-                下载
+                {{ $t('下载') }}
               </button>
               <button class="btn small danger" @click="delConfirm(tran)">
-                删除
+                {{ $t('删除') }}
               </button>
             </div>
           </td>
@@ -121,34 +121,36 @@
     v-model="visible"
   >
     <p style="margin: 20px 0">
-      删除后将会导致您正在使用的站点异常，
+      {{ $t('删除后将会导致您正在使用的站点异常，') }}
       <br>
-      确定删除 [ {{ tran._id }} ] 语言包吗？
+      {{ $t('确定删除 [ {transId} ] 语言包吗？', { transId:  tran._id }) }}
     </p>
     <div class="flex center">
-      <button class="btn small" @click="delTrans()">确定删除</button>
-      <button class="btn small border" @click="visible = false">取消</button>
+      <button class="btn small" @click="delTrans()">{{ $t('确定删除') }}</button>
+      <button class="btn small border" @click="visible = false">{{ $t('取消') }}</button>
     </div>
   </Dialog>
-  <Dialog v-model="mergeVisible">
+  <Dialog v-model="mergeVisible" class="sm">
     <p class="merge-dialog-tips">
-      将多个语言包合并为一个语言包，重复字段、语种以主文件为准。
+      {{ $t('将多个语言包合并为一个语言包，重复字段、语种以主文件为准。') }}
       <br>
       <span class="merge-tips">
-        若您未设置主文件，则会以选择的最后一个语言包作为主文件。
+        {{ $t('若您未设置主文件，则会以选择的最后一个语言包作为主文件。') }}
       </span>
       <br>
-      <a href="" @click.stop.prevent="handleGuideClick()">点我了解如何设置主文件</a>
+      <a href="" @click.stop.prevent="handleGuideClick()">
+        {{ $t('点我了解如何设置主文件') }}
+      </a>
     </p>
     <textarea
       v-model="mergeMark"
       type="text"
       class="input"
-      placeholder="语言包备注"
+      :placeholder="$t('语言包备注')"
     />
     <div class="flex center">
-      <button class="btn small" @click="mergeTrans()">合并</button>
-      <button class="btn small border" @click="mergeVisible = false">取消</button>
+      <button class="btn small" @click="mergeTrans()">{{ $t('合并') }}</button>
+      <button class="btn small border" @click="mergeVisible = false">{{ $t('取消') }}</button>
     </div>
   </Dialog>
 </template>
@@ -156,7 +158,7 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import { request, formatDate, handleClipboard, setMainTransDriver } from '../../utils'
-import { useNotify } from '../../components/Notify'
+import { useNotify } from '@/components/Notify'
 
 const useTrans = () => {
   const notify = useNotify()

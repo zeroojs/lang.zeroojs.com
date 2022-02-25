@@ -29,8 +29,10 @@ body::-webkit-scrollbar {
   height: 400px;
   width: 100%;
   position: relative;
-  display: grid;
+  display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 .banner-bg {
   position: absolute;
@@ -77,6 +79,7 @@ body::-webkit-scrollbar {
   text-align: center;
 }
 .btn {
+  text-align: center;
   background-color: #6C63FF;
   color: #fff;
   min-width: 200px;
@@ -93,10 +96,14 @@ body::-webkit-scrollbar {
   text-decoration: none;
   max-width: 300px;
   width: 100%;
-  margin: auto;
+  margin: 20px auto;
   /* box-shadow: 0 5px 30px rgba(0, 0, 0, .2); */
   box-shadow: 0 5px 15px rgba(105, 97, 255, .5),
               0 5px 30px rgba(0, 0, 0, .2);
+}
+.language-btn {
+  max-width: 120px;
+  background-color: #c977f7;
 }
 .btn:not(.border):hover {
   background-color: #857ffc;

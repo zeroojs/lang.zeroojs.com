@@ -4,7 +4,7 @@
  * @Author: Minyoung
  * @Date: 2022-01-18 13:35:19
  * @LastEditors: Minyoung
- * @LastEditTime: 2022-02-11 09:39:32
+ * @LastEditTime: 2022-02-25 14:16:02
  */
 
 // 将翻译原文和译文格式化为 json
@@ -44,7 +44,6 @@ export function jsonToContent(json = {}) {
   const keys = Object.keys(json)
   // const vals = Object.values(json).map(item => item === '' ? 'null' : item)
   const vals = Object.values(json)
-  console.log('keys', keys)
   return {
     origin: keys.join('\n').trim(),
     target: vals.join('\n').trim()

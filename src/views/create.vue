@@ -4,7 +4,7 @@
  * @Author: Minyoung
  * @Date: 2022-01-18 10:37:58
  * @LastEditors: Minyoung
- * @LastEditTime: 2022-02-24 16:33:06
+ * @LastEditTime: 2022-02-25 14:10:50
 -->
 <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
@@ -211,14 +211,14 @@ const transOnline = async () => {
     <div class="trans-group-item">
       <TransTextarea
         v-model="formData.originContent"
-        placeholder="请输入原文内容"
+        :placeholder="$t('请输入原文内容')"
         id="origin-textarea"
       />
     </div>
     <div class="trans-group-item">
       <TransTextarea
         v-model="formData.targetContent"
-        placeholder="请输入译文内容"
+        :placeholder="$t('请输入译文内容')"
         id="target-textarea"
       />
     </div>
@@ -227,15 +227,19 @@ const transOnline = async () => {
     <div class="trans-group">
       <div class="trans-group-item">
         <div class="select-group flex">
-          <Select v-model="formData.from" id="origin-lang" placeholder="请添加语种">
+          <Select
+            v-model="formData.from"
+            id="origin-lang"
+            :placeholder="$t('请添加语种')"
+          >
             <Option
               v-for="lang in langs"
               :key="lang._id"
               :value="lang._id"
-              :label="`${lang.name}（${lang.value}）`"
+              :label="lang.name"
               class="select-option"
             >
-              {{ lang.name }}（{{ lang.value }}）
+              {{ lang.name }}
             </Option>
           </Select>
           <span>></span>
@@ -244,10 +248,10 @@ const transOnline = async () => {
               v-for="lang in langs"
               :key="lang._id"
               :value="lang._id"
-              :label="`${lang.name}（${lang.value}）`"
+              :label="lang.name"
               class="select-option"
             >
-              {{ lang.name }}（{{ lang.value }}）
+              {{ lang.name }}
             </Option>
           </Select>
         </div>
@@ -262,7 +266,7 @@ const transOnline = async () => {
           v-model="formData.website"
           type="text"
           class="input website-textarea"
-          placeholder="请输入使用站点，站点之间换行"
+          :placeholder="$t('请输入使用站点，站点之间换行')"
         />
       </label>
       <label class="trans-group-item">
@@ -270,18 +274,18 @@ const transOnline = async () => {
           v-model="formData.mark"
           type="text"
           class="input"
-          placeholder="语言包备注"
+          :placeholder="$t('语言包备注')"
         />
       </label>
     </div>
   </form>
   <div align="center">
-    <button class="btn border trans-online-btn" @click.stop="transOnline()">开始翻译</button>
-    <button class="btn border preview-json-btn" @click="genJsonContent()">预览 JSON</button>
+    <button class="btn border trans-online-btn" @click.stop="transOnline()">{{ $t('开始翻译') }}</button>
+    <button class="btn border preview-json-btn" @click="genJsonContent()">{{ $t('预览 JSON') }}</button>
     <!-- <button class="btn" @click="genJsonContent(true)">预览压缩后的 JSON</button> -->
-    <button class="btn border upload-json-btn" @click="fileInput.click()">上传 JSON</button>
+    <button class="btn border upload-json-btn" @click="fileInput.click()">{{ $t('上传 JSON') }}</button>
     <button class="btn submit-json-btn" @click="uploadTransContent()">
-      {{ isPut ? '更新' : '创建' }}语言包
+      {{ $t(isPut ? '更新语言包' : '创建语言包') }}
     </button>
   </div>
   <JsonPreview v-show="jsonContent" :json="jsonContent" />

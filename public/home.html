@@ -4,7 +4,7 @@
  * @Author: Minyoung
  * @Date: 2022-02-23 23:37:57
  * @LastEditors: Minyoung
- * @LastEditTime: 2022-02-24 22:25:13
+ * @LastEditTime: 2022-02-25 16:52:21
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +14,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>首页</title>
   <link rel="stylesheet" href="./static/home/home.css">
+  <script src="./static/home/axios.min.js" defer></script>
+  <script src="./static/home/i18next.min.js" defer></script>
 </head>
 <body>
   <div class="banner">
@@ -22,15 +24,16 @@
         <svg width="100%" height="100%" id="svg" viewBox="0 0 1440 600" xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150"><defs><linearGradient id="gradient" x1="4%" y1="31%" x2="96%" y2="69%"><stop offset="5%" stop-color="#9900ef88"></stop><stop offset="95%" stop-color="#0693e388"></stop></linearGradient></defs><path d="M 0,600 C 0,600 0,200 0,200 C 117.12918660287082,155.39712918660285 234.25837320574163,110.79425837320574 312,133 C 389.74162679425837,155.20574162679426 428.0956937799043,244.2200956937799 530,261 C 631.9043062200957,277.7799043062201 797.3588516746412,222.32535885167465 894,190 C 990.6411483253588,157.67464114832535 1018.4688995215311,148.47846889952152 1098,154 C 1177.531100478469,159.52153110047848 1308.7655502392345,179.76076555023923 1440,200 C 1440,200 1440,600 1440,600 Z" stroke="none" stroke-width="0" fill="url(#gradient)" class="transition-all duration-300 ease-in-out delay-150 path-0" transform="rotate(-180 720 300)"></path><defs><linearGradient id="gradient" x1="4%" y1="31%" x2="96%" y2="69%"><stop offset="5%" stop-color="#9900efff"></stop><stop offset="95%" stop-color="#0693e3ff"></stop></linearGradient></defs><path d="M 0,600 C 0,600 0,400 0,400 C 62.08612440191388,402.6794258373206 124.17224880382776,405.3588516746412 235,391 C 345.82775119617224,376.6411483253588 505.3971291866029,345.24401913875596 610,349 C 714.6028708133971,352.75598086124404 764.2392344497607,391.665071770335 834,388 C 903.7607655502393,384.334928229665 993.6459330143541,338.09569377990425 1098,333 C 1202.3540669856459,327.90430622009575 1321.1770334928228,363.9521531100479 1440,400 C 1440,400 1440,600 1440,600 Z" stroke="none" stroke-width="0" fill="url(#gradient)" class="transition-all duration-300 ease-in-out delay-150 path-1" transform="rotate(-180 720 300)"></path></svg>
       </div>
     </div>
-    <a href="/login" class="btn">创建我的第一个语言包</a>
+    <a href="/login" class="btn" data-text="创建我的第一个语言包">创建我的第一个语言包</a>
+    <button data-locale="en" class="btn small language-btn">English</button>
   </div>
   <div class="banner-content-container">
     <div class="banner-content container blur-card">
       <div class="banner-header flex">
         <h1>ZEROOJS</h1>
-        <h4>语言包管理工具</h4>
+        <h4 data-text="语言包管理工具">语言包管理工具</h4>
       </div>
-      <section>
+      <section data-text="使用百度通用翻译API支持提供200+语种互译的在线文本翻译服务，支持多达4万多个语言方向，且支持多语种自动检测。您只需调用通用翻译API，传入待翻译的内容，并指定要翻译的源语言（支持源语言语种自动检测）和目标语言，即可得到相应的翻译结果。">
         使用百度通用翻译API支持提供200+语种互译的在线文本翻译服务，支持多达4万多个语言方向，且支持多语种自动检测。您只需调用通用翻译API，传入待翻译的内容，并指定要翻译的源语言（支持源语言语种自动检测）和目标语言，即可得到相应的翻译结果。
       </section>
     </div>
@@ -40,12 +43,12 @@
       <img src="./static/images/guid.png" alt="">
     </div>
     <section class="preview-content">
-      <h1>友好的使用指南</h1>
+      <h1 data-text="友好的使用指南">友好的使用指南</h1>
     </section>
   </div>
   <div class="preview-item flex">
     <section class="preview-content">
-      <h1>简洁的创建方式</h1>
+      <h1 data-text="简洁的创建方式">简洁的创建方式</h1>
     </section>
     <div class="preview-img">
       <img src="./static/images/create.png" alt="">
@@ -56,24 +59,24 @@
       <img src="./static/images/trans-list.png" alt="">
     </div>
     <section class="preview-content">
-      <h1>提供合并、下载多功能管理</h1>
+      <h1 data-text="提供合并、下载多功能管理">提供合并、下载多功能管理</h1>
     </section>
   </div>
   <div class="preview-item flex">
     <section class="preview-content">
-      <h1>自定义语种，创建更丰富的语言包</h1>
+      <h1 data-text="自定义语种，创建更丰富的语言包">自定义语种，创建更丰富的语言包</h1>
     </section>
     <div class="preview-img">
       <img src="./static/images/lang.png" alt="">
     </div>
   </div>
   <div class="footer">
-    zeroojs.com 版权所有 ©2022
+    zeroojs.com <span data-text="版权所有">版权所有</span> ©2022
     <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=52032102000631">
       <img src="http://vite.zeroojs.com/static/images/gongan.png" alt="">
-      贵公网安备 52032102000631号
+      <span data-text="贵公网安备 52032102000631号">贵公网安备 52032102000631号</span>
     </a>
-    <a href="https://beian.miit.gov.cn">黔ICP备18004184号-2</a>
+    <a href="https://beian.miit.gov.cn" data-text="黔ICP备18004184号-2">黔ICP备18004184号-2</a>
   </div>
   <script src="./static/home/scrollreveal.min.js" defer></script>
   <script src="./static/home/main.js"></script>

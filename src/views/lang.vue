@@ -4,20 +4,20 @@
  * @Author: Minyoung
  * @Date: 2022-02-09 10:23:06
  * @LastEditors: Minyoung
- * @LastEditTime: 2022-02-10 17:45:25
+ * @LastEditTime: 2022-02-25 14:28:59
 -->
 <template>
   <div class="lang">
-    <button class="btn small add-lang-btn" @click="openDialog()">添加语种</button>
-    <p>更多语种可查看：<a href="http://api.fanyi.baidu.com/doc/21" target="_blank" class="lang-about-link">http://api.fanyi.baidu.com/doc/21</a></p>
+    <button class="btn small add-lang-btn" @click="openDialog()">{{ $t('添加语种') }}</button>
+    <p>{{ $t('更多语种可查看：') }} <a href="http://api.fanyi.baidu.com/doc/21" target="_blank" class="lang-about-link">http://api.fanyi.baidu.com/doc/21</a></p>
     <table>
       <thead>
         <tr>
-          <td>名称</td>
-          <td>关键字</td>
-          <td>上次修改时间</td>
-          <td>备注</td>
-          <td align="center">操作</td>
+          <td>{{ $t('名称') }}</td>
+          <td>{{ $t('关键字') }}</td>
+          <td>{{ $t('上次修改时间') }}</td>
+          <td>{{ $t('备注') }}</td>
+          <td align="center">{{ $t('操作') }}</td>
         </tr>
       </thead>
       <tbody v-if="langs.length">
@@ -28,17 +28,17 @@
           <td>{{ lang.name }}</td>
           <td>{{ lang.value }}</td>
           <td>{{ formatDate(lang.updatedAt) }}</td>
-          <td>{{ lang.mark || '无' }}</td>
+          <td>{{ lang.mark || '/' }}</td>
           <td align="center">
             <button
               class="btn small"
               tag="button"
               @click="openDialog(lang)"
             >
-              编辑
+              {{ $t('编辑') }}
             </button>
             <button class="btn small danger" @click="openDelDialog(lang)">
-              删除
+              {{ $t('删除') }}
             </button>
           </td>
         </tr>
@@ -46,23 +46,24 @@
     </table>
   </div>
   <Dialog v-model="visible">
-    <input v-model="name" class="input lang-name-input" placeholder="名称" />
-    <input v-model="value" class="input" placeholder="引用名称" />
-    <textarea v-model="mark" class="input" placeholder="备注" />
-    <button class="btn small" @click="createLang()">确定</button>
-    <button class="btn small border" @click="visible = false">取消</button>
+    <input v-model="name" class="input lang-name-input" :placeholder="$t('名称')" />
+    <input v-model="value" class="input" :placeholder="$t('引用名称')" />
+    <textarea v-model="mark" class="input" :placeholder="$t('备注')" />
+    <button class="btn small" @click="createLang()">{{ $t('确定') }}</button>
+    <button class="btn small border" @click="visible = false">{{ $t('取消') }}</button>
   </Dialog>
   <Dialog
     v-model="delVisible"
+    class="sm"
   >
-    <p style="margin: 20px 0">
-      删除后将会导致您正在使用次语种的站点异常，
+    <p style="margin: 20px 0;line-height: 1.5em;">
+      {{ $t('删除后将会导致您正在使用次语种的站点异常，') }}
       <br>
-      确定删除该语种吗？
+      {{ $t('确定删除该语种吗？') }}
     </p>
     <div class="flex center">
-      <button class="btn small" @click="delLang()">确定删除</button>
-      <button class="btn small border" @click="delVisible = false">取消</button>
+      <button class="btn small" @click="delLang()">{{ $t('确定删除') }}</button>
+      <button class="btn small border" @click="delVisible = false">{{ $t('取消') }}</button>
     </div>
   </Dialog>
 </template>
